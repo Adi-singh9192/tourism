@@ -1,11 +1,26 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+        },
+        rajasthan: {
+          orange: '#FF9933',
+          green: '#138808',
+          saffron: '#FF671F',
+        }
+      }
+    },
   },
   plugins: [],
 }
