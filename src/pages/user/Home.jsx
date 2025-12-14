@@ -67,7 +67,26 @@ const UserHome = () => {
 
   /* ================= GET USER LOCATION ================= */
   useEffect(() => {
-    if (!navigator.geolocation) return;
+    // 1️⃣ Try localStorage first
+    const savedLocation = localStorage.getItem("userLocation");
+
+    if (savedLocation) {
+      try {
+        const parsed = JSON.parse(savedLocation);
+        if (parsed?.state) {
+          setUserLocation(parsed);
+          return; // ✅ STOP here, do NOT ask permission
+        }
+      } catch (e) {
+        console.warn("Invalid saved location, ignoring");
+      }
+    }
+
+    // 2️⃣ Ask permission ONLY if no saved location
+    if (!navigator.geolocation) {
+      console.warn("Geolocation not supported");
+      return;
+    }
 
     navigator.geolocation.getCurrentPosition(
       async ({ coords }) => {
@@ -81,29 +100,25 @@ const UserHome = () => {
           const state = data.address?.state || "Rajasthan";
           const district = data.address?.state_district || "";
 
-          // 🔹 Save in state
-          setUserLocation({ state, district });
+          const location = { state, district };
 
-          // 🔹 Save in localStorage
-          localStorage.setItem(
-            "userLocation",
-            JSON.stringify({ state, district })
-          );
+          // Save to state
+          setUserLocation(location);
+
+          // Save to localStorage
+          localStorage.setItem("userLocation", JSON.stringify(location));
         } catch (err) {
-          console.warn("Location detection failed", err);
+          console.warn("Location fetch failed", err);
         }
       },
-      () => {
-        console.warn("Location permission denied");
-
-        // 🔹 Fallback from localStorage
-        const savedLocation = localStorage.getItem("userLocation");
-        if (savedLocation) {
-          setUserLocation(JSON.parse(savedLocation));
-        }
+      (err) => {
+        console.warn("Location permission denied", err);
+        // Optional fallback
+        setUserLocation({ state: "Rajasthan", district: "" });
       }
     );
   }, []);
+
 
 
   /* ================= FETCH BACKEND DATA ================= */

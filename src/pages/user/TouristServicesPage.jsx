@@ -279,7 +279,8 @@ const TouristServicesPage = () => {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="grid md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+
                                 <div className="bg-gray-50 rounded-xl p-5">
                                     <div className="flex items-start gap-3">
                                         <BiUser className="w-5 h-5 text-indigo-600 mt-1" />
@@ -484,12 +485,14 @@ const TouristServicesPage = () => {
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50">
             <div className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white py-6 shadow-lg">
                 <div className="container mx-auto px-4">
-                    <h1 className="text-2xl md:text-3xl font-bold text-center">
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-center">
                         Rajasthan Tourism Complaint Portal
                     </h1>
-                    <p className="text-center text-indigo-100 mt-2 text-sm md:text-base">
+
+                    <p className="text-center text-indigo-100 mt-2 text-xs sm:text-sm md:text-base">
                         Department of Tourism, Government of Rajasthan
                     </p>
+
                 </div>
             </div>
 
@@ -631,25 +634,46 @@ const TouristServicesPage = () => {
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Mobile Number <span className="text-red-500">*</span>
                             </label>
-                            <div className="flex gap-3">
+                            <div className="flex flex-col sm:flex-row gap-3">
                                 <select
                                     name="countryCode"
                                     value={formData.countryCode}
                                     onChange={handleInputChange}
                                     disabled={formData.nationality === 'domestic'}
-                                    className="px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+                                    className="
+      w-full sm:w-40
+      px-3 sm:px-4
+      py-3
+      text-sm sm:text-base
+      border-2 border-gray-200 rounded-xl
+      focus:border-indigo-500 focus:outline-none
+      transition-colors
+      bg-white
+      disabled:bg-gray-100 disabled:cursor-not-allowed
+    "
                                 >
                                     {countryCodes.map(({ code, country }) => (
-                                        <option key={code} value={code}>{code} {country}</option>
+                                        <option key={code} value={code}>
+                                            {code} {country}
+                                        </option>
                                     ))}
                                 </select>
+
                                 <input
                                     type="tel"
                                     name="mobile"
                                     value={formData.mobile}
                                     onChange={handleInputChange}
                                     placeholder={`${getExpectedDigits()}-digit mobile number`}
-                                    className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors"
+                                    className="
+      w-full
+      px-3 sm:px-4
+      py-3
+      text-sm sm:text-base
+      border-2 border-gray-200 rounded-xl
+      focus:border-indigo-500 focus:outline-none
+      transition-colors
+    "
                                 />
                             </div>
                             <p className="text-xs text-gray-500 mt-1">
@@ -683,7 +707,8 @@ const TouristServicesPage = () => {
                             )}
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                                     Type of Complaint <span className="text-red-500">*</span>
